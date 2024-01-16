@@ -2,36 +2,82 @@
 
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
+
+<!-- <div class="col-md-6 offset-md-3"> -->
+    
 
     {% if user.is_authenticated %}
+    <h1>Tasks</h1>
 
-    <h1>hello world</h1>
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col"># ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created</th>
+            <th scope="col">Estimated Time</th>
+            <th scope="col">Due Date</th>
+          </tr>
+          </thead>
+          <tbody>
+            {% if tasks %}
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.id }}</td>
+                        <td><a href="{% url 'task' task.id %}">{{ task.task_title }}</a></td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.priority }}</td>
+                        <td>{{ task.status }}</td>
+                        <td>{{ task.created_at }}</td>
+                        <td>{{ task.est_time }}</td>
+                        <td>{{ task.due_date }}</td>
+                        <br>
+
+                    </tr>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+          </tbody>
+  </table>
+
+
+
+
+
 
     {% else %}
-
-    <h1>Login</h1>
-    <br>
-    <form method="POST" action="{% url 'home' %}">
-        <!-- to not get hacked -->
-        {% csrf_token %} 
-        <form>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Username</label>
-              <input name="user", type="text" class="form-control" aria-describedby="emailHelp" required>
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input name="password",  type="password" class="form-control"  required>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            <br>
-          </form>
-
-
-    </form>
-
-</div>
+    <div class="col-md-6 offset-md-3">
+        <h1>Login</h1>
+        <br>
+        <form method="POST" action="{% url 'home' %}">
+            <!-- to not get hacked -->
+            {% csrf_token %} 
+    
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Username</label>
+                  <input name="username", type="text" class="form-control" aria-describedby="emailHelp" required>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input name="password",  type="password" class="form-control"  required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <br>
+              
+    
+    
+        </form>
+    
+        
+    </div>
+    
+<!-- </div> -->
 
 {% endif %}
 

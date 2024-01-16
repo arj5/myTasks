@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>View Task</h1>
+<br>
+
+<div class="card">
+    <div class="card-header">
+      Task ID: {{ user_task.id }}
+    </div>
+
+    <div class="card-body">
+      <h3 class="card-title">{{ user_task.task_title }}</h3>
+      <br>
+      <h5>Description</h5>
+      <p class="card-text"> {{ user_task.description }}</p>
+      <h5>Priority</h5>
+      <p class="card-text">{{ user_task.priority }}</p>
+      <h5>Status</h5>
+      <p class="card-text">{{ user_task.status }}</p>
+      <h5>Estimated Time</h5>
+      <p class="card-text">{{ user_task.est_time }}</p>
+      <h5>Due Date</h5>
+      <p class="card-text">{{ user_task.due_date }}</p>
+
+      
+    
+    </div>
+      <div class="card-header">
+        Created: {{ user_task.created_at }}
+      </div>
+  </div>
+
+  <br><br>
+  <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+  <a href="{% url 'update_task' user_task.id %}" class="btn btn-warning">Update</a>
+  <a href="{% url 'delete_task' user_task.id %}" class="btn btn-danger">Delete</a>
+
+
+
+
+
+
+
+
+               
+
+
+{% endblock %}
