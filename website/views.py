@@ -106,7 +106,17 @@ def update_task(request, pk):
         return redirect('home')
      
 
-     # all sorting methods
+def priority(request):
+     if request.user.is_authenticated:
+          messages.success(request, "Show Priority Sorting!")
+          return render(request, 'priority.html')
+
+     else:
+          messages.success(request, "You must be logged in to delete tasks!")
+          return redirect('home')
+
+
+# all sorting methods
 
 #PRIORITY
 
@@ -154,23 +164,31 @@ def sorting(request):
 
           # datecreated
 
-          elif sort == 'created':
+          elif sort == 'createdh':
                tasks = Task.objects.order_by("created_at")
+          elif sort == 'createdl':
+               tasks = Task.objects.order_by("-created_at")
 
           # due date
                
-          elif sort == 'due':
+          elif sort == 'dueh':
                tasks = Task.objects.order_by("due_date")
+          elif sort == 'duel':
+               tasks = Task.objects.order_by("-due_date")
 
           # title
                
-          elif sort == 'title':
+          elif sort == 'titleh':
                tasks = Task.objects.order_by('task_title')
+          elif sort == 'titlel':
+               tasks = Task.objects.order_by('-task_title')
 
           # id
 
-          elif sort == 'givenid':
+          elif sort == 'givenidh':
                tasks = Task.objects.order_by('given_id')
+          elif sort == 'givenidl':
+               tasks = Task.objects.order_by('-given_id')
         
           return render(request, 'home.html', {'tasks':tasks})
      else:

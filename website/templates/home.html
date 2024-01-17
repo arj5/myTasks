@@ -9,47 +9,58 @@
     {% if user.is_authenticated %}
     <h1>Tasks</h1>
 
-    <br>
-    <a href="{% url 'sorting' %}?sort=orderhigh" class="btn btn-danger">High to Low</a> 
-    <a href="{% url 'sorting' %}?sort=orderlow" class="btn btn-danger">Low to High</a> 
-    <a href="{% url 'sorting' %}?sort=onlylow" class="btn btn-danger">Only Low</a>
-    <a href="{% url 'sorting' %}?sort=onlymed" class="btn btn-danger">Only Medium</a>
-    <a href="{% url 'sorting' %}?sort=onlyhigh" class="btn btn-danger">Only High</a>
-
-    <a href="{% url 'sorting' %}?sort=ordertodo" class="btn btn-danger">To-Do to Completed</a>
-    <a href="{% url 'sorting' %}?sort=ordercomp" class="btn btn-danger">Completed to To-Do</a>
-    <a href="{% url 'sorting' %}?sort=onlytodo" class="btn btn-danger">Only Todo</a>
-    <a href="{% url 'sorting' %}?sort=onlyprog" class="btn btn-danger">Only In Progress</a>
-
-    <br><br>
-    <a href="{% url 'sorting' %}?sort=onlycomp" class="btn btn-danger">Only Completed</a>
-<!-- 
-    <a href="{% url 'sorting' %}?sort=givenidh" class="btn btn-danger">ID High</a>
-    <a href="{% url 'sorting' %}?sort=givenidl" class="btn btn-danger">ID Low</a> -->
-
-    <a href="{% url 'sorting' %}?sort=title" class="btn btn-danger">Order Title</a>
-    <!-- <a href="{% url 'sorting' %}?sort=title" class="btn btn-danger">Reverse Title</a> -->
-
-    <a href="{% url 'sorting' %}?sort=givenid" class="btn btn-danger">Order ID</a>
-    <!-- <a href="{% url 'sorting' %}?sort=givenid" class="btn btn-danger">Reverse ID</a> -->
-
-    <a href="{% url 'sorting' %}?sort=created" class="btn btn-danger">Date Created</a>
-    <a href="{% url 'sorting' %}?sort=due" class="btn btn-danger">Due Date</a>
+    <div id = "priority" style="display: none;">
+      <a href="{% url 'sorting' %}?sort=orderhigh" class="btn btn-secondary">High to Low</a> 
+      <a href="{% url 'sorting' %}?sort=orderlow" class="btn btn-secondary">Low to High</a> 
+      <a href="{% url 'sorting' %}?sort=onlylow" class="btn btn-secondary">Only Low</a>
+      <a href="{% url 'sorting' %}?sort=onlymed" class="btn btn-secondary">Only Medium</a>
+      <a href="{% url 'sorting' %}?sort=onlyhigh" class="btn btn-secondary">Only High</a>
+    </div>
 
 
+    <div id="status" style="display: none;">
+      <a href="{% url 'sorting' %}?sort=ordertodo" class="btn btn-secondary">To-Do to Completed</a>
+      <a href="{% url 'sorting' %}?sort=ordercomp" class="btn btn-secondary">Completed to To-Do</a>
+      <a href="{% url 'sorting' %}?sort=onlytodo" class="btn btn-secondary">Only Todo</a>
+      <a href="{% url 'sorting' %}?sort=onlyprog" class="btn btn-secondary">Only In Progress</a>
+      <a href="{% url 'sorting' %}?sort=onlycomp" class="btn btn-secondary">Only Completed</a>
+    </div>
+
+    
+    <div id="id" style="display: none;">
+      <a href="{% url 'sorting' %}?sort=givenidh" class="btn btn-secondary">Order ID</a>
+      <a href="{% url 'sorting' %}?sort=givenidl" class="btn btn-secondary">Reverse ID</a>
+    </div>
+
+    <div id="title" style="display: none;">
+      <a href="{% url 'sorting' %}?sort=titleh" class="btn btn-secondary">Order Title</a>
+      <a href="{% url 'sorting' %}?sort=titlel" class="btn btn-secondary">Reverse Title</a> 
+    </div>
+    
+    <div id="created" style="display: none;">
+      <a href="{% url 'sorting' %}?sort=createdh" class="btn btn-secondary">Order Date Created</a>
+      <a href="{% url 'sorting' %}?sort=createdl" class="btn btn-secondary">Reverse Date Created</a>
+    </div>
+
+    <div id="duedate" style="display: none;">
+      <a href="{% url 'sorting' %}?sort=dueh" class="btn btn-secondary">Order Due Date</a>
+      <a href="{% url 'sorting' %}?sort=duel" class="btn btn-secondary">Reverse Due Date</a>
+    </div>
+   
 
 
+<br>
     <table class="table table-hover table-bordered">
         <thead class="table-dark">
           <tr>
-            <th scope="col"># ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Status</th>
-            <th scope="col">Created</th>
-            <th scope="col">Estimated Time</th>
-            <th scope="col">Due Date</th>
+            <th scope="col" class="text-center"><a class="btn btn-dark" onclick="sortid()"><strong># ID</strong></a></th>
+            <th scope="col" class="text-center"><a class="btn btn-dark" onclick="sorttitle()"><strong>Title</strong></a></th>
+            <th scope="col" class="text-center align-middle">Description</th> 
+            <th scope="col" class="text-center"><a class="btn btn-dark" onclick="priority()"><strong>Priority</strong></a></th>
+            <th scope="col" class="text-center"><a class="btn btn-dark" onclick="status()"><strong>Status</strong></a></th>
+            <th scope="col" class="text-center"><a class="btn btn-dark" onclick="created()"><strong>Created</strong></a></th>
+            <th scope="col" class="text-center align-middle">Estimated Time</th>
+            <th scope="col" class="text-center"><a class="btn btn-dark" onclick="duedate()"><strong>Due Date</strong></a></th>
           </tr>
           </thead>
           <tbody>
@@ -64,7 +75,7 @@
                         <td>{{ task.created_at }}</td>
                         <td>{{ task.est_time }}</td>
                         <td>{{ task.due_date }}</td>
-                        <br>
+              
 
                     </tr>
 
@@ -75,6 +86,102 @@
 
           </tbody>
   </table>
+
+  <script>
+    let p = document.getElementById("priority");
+    let s = document.getElementById("status");
+    let t = document.getElementById("title");
+    let i = document.getElementById("id");
+    let c = document.getElementById("created");
+    let d = document.getElementById("duedate");
+
+    function priority(){
+      if (p.style.display === "none") {
+        p.style.display = "block";
+        t.style.display = "none";
+        i.style.display = "none";
+        c.style.display = "none";
+        d.style.display = "none";
+        s.style.display = "none";
+
+      } else {
+         p.style.display = "none";
+      }
+    }
+
+    function status(){
+
+      if (s.style.display === "none") {
+        s.style.display = "block";
+        p.style.display = "none";
+        t.style.display = "none";
+        i.style.display = "none";
+        c.style.display = "none";
+        d.style.display = "none";
+    
+
+      } else {
+        s.style.display = "none";
+      }
+    }
+    function sorttitle(){
+      if (t.style.display === "none") {
+        t.style.display = "block";
+        p.style.display = "none";
+        i.style.display = "none";
+        c.style.display = "none";
+        d.style.display = "none";
+        s.style.display = "none";
+      } else {
+        t.style.display = "none";
+      }
+    }
+
+    function sortid(){
+
+      if (i.style.display === "none") {
+        i.style.display = "block";
+        t.style.display = "none";
+        p.style.display = "none";
+        c.style.display = "none";
+        d.style.display = "none";
+        s.style.display = "none";
+
+      } else {
+        i.style.display = "none";
+      }
+    }
+    function created(){
+
+      if (c.style.display === "none") {
+        c.style.display = "block";
+        t.style.display = "none";
+        i.style.display = "none";
+        p.style.display = "none";
+        d.style.display = "none";
+        s.style.display = "none";
+
+      } else {
+        c.style.display = "none";
+      }
+    }
+    function duedate(){
+
+      if (d.style.display === "none") {
+        d.style.display = "block";
+        t.style.display = "none";
+        i.style.display = "none";
+        c.style.display = "none";
+        p.style.display = "none";
+        s.style.display = "none";
+
+      } else {
+        d.style.display = "none";
+      }
+    }
+
+
+  </script>
 
 
 
