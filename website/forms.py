@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django import forms
 from .models import Task
 
+# from django.utils import timezone
+
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField( max_length=30, required=True, widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -27,14 +29,16 @@ class SignUpForm(UserCreationForm):
 
 # Adding tasks form
 class AddTaskForm(forms.ModelForm):
-    
+
+
     task_title = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"class":"form-control"}), label="Title")
     description = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"class":"form-control"}), label="Description")
-    priority = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"class":"form-control"}), label="Priority")
-    status = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"class":"form-control"}), label="Status")
+    priority = forms.ChoiceField(choices=Task.PRIORITY_CHOICES, required=True, widget=forms.widgets.Select(attrs={"class":"form-control"}), label="Priority")
+    status = forms.ChoiceField(choices=Task.STATUS_CHOICES, required=True, widget=forms.widgets.Select(attrs={"class":"form-control"}), label="Status")
     est_time = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"class":"form-control"}), label="Estimated time to complete")
-    due_date = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={"class":"form-control"}), label="Due Date")
+    due_date = forms.DateField(required=False, widget=forms.widgets.DateInput(attrs={"class":"form-control", 'type':'date'}), label="Due Date") # , input_formats='%b %d, %Y'
+    given_id = forms.IntegerField(required=True, widget=forms.widgets.TextInput(attrs={"class":"form-control"}), label="# ID")
 
     class Meta:
         model = Task
-        fields= ('task_title', 'description', 'priority', 'status', 'est_time', 'due_date')
+        fields= ('task_title', 'description', 'priority', 'status', 'est_time', 'due_date', 'given_id')

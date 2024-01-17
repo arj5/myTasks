@@ -9,6 +9,36 @@
     {% if user.is_authenticated %}
     <h1>Tasks</h1>
 
+    <br>
+    <a href="{% url 'sorting' %}?sort=orderhigh" class="btn btn-danger">High to Low</a> 
+    <a href="{% url 'sorting' %}?sort=orderlow" class="btn btn-danger">Low to High</a> 
+    <a href="{% url 'sorting' %}?sort=onlylow" class="btn btn-danger">Only Low</a>
+    <a href="{% url 'sorting' %}?sort=onlymed" class="btn btn-danger">Only Medium</a>
+    <a href="{% url 'sorting' %}?sort=onlyhigh" class="btn btn-danger">Only High</a>
+
+    <a href="{% url 'sorting' %}?sort=ordertodo" class="btn btn-danger">To-Do to Completed</a>
+    <a href="{% url 'sorting' %}?sort=ordercomp" class="btn btn-danger">Completed to To-Do</a>
+    <a href="{% url 'sorting' %}?sort=onlytodo" class="btn btn-danger">Only Todo</a>
+    <a href="{% url 'sorting' %}?sort=onlyprog" class="btn btn-danger">Only In Progress</a>
+
+    <br><br>
+    <a href="{% url 'sorting' %}?sort=onlycomp" class="btn btn-danger">Only Completed</a>
+<!-- 
+    <a href="{% url 'sorting' %}?sort=givenidh" class="btn btn-danger">ID High</a>
+    <a href="{% url 'sorting' %}?sort=givenidl" class="btn btn-danger">ID Low</a> -->
+
+    <a href="{% url 'sorting' %}?sort=title" class="btn btn-danger">Order Title</a>
+    <!-- <a href="{% url 'sorting' %}?sort=title" class="btn btn-danger">Reverse Title</a> -->
+
+    <a href="{% url 'sorting' %}?sort=givenid" class="btn btn-danger">Order ID</a>
+    <!-- <a href="{% url 'sorting' %}?sort=givenid" class="btn btn-danger">Reverse ID</a> -->
+
+    <a href="{% url 'sorting' %}?sort=created" class="btn btn-danger">Date Created</a>
+    <a href="{% url 'sorting' %}?sort=due" class="btn btn-danger">Due Date</a>
+
+
+
+
     <table class="table table-hover table-bordered">
         <thead class="table-dark">
           <tr>
@@ -26,11 +56,11 @@
             {% if tasks %}
                 {% for task in tasks %}
                     <tr>
-                        <td>{{ task.id }}</td>
+                        <td>{{ task.given_id }}</td>
                         <td><a href="{% url 'task' task.id %}">{{ task.task_title }}</a></td>
                         <td>{{ task.description }}</td>
-                        <td>{{ task.priority }}</td>
-                        <td>{{ task.status }}</td>
+                        <td>{{ task.get_priority_display }}</td>
+                        <td>{{ task.get_status_display }}</td>
                         <td>{{ task.created_at }}</td>
                         <td>{{ task.est_time }}</td>
                         <td>{{ task.due_date }}</td>
@@ -45,8 +75,6 @@
 
           </tbody>
   </table>
-
-
 
 
 

@@ -6,7 +6,7 @@
 
 <div class="card">
     <div class="card-header">
-      Task ID: {{ user_task.id }}
+      Task ID: {{ user_task.given_id }}
     </div>
 
     <div class="card-body">
@@ -15,9 +15,9 @@
       <h5>Description</h5>
       <p class="card-text"> {{ user_task.description }}</p>
       <h5>Priority</h5>
-      <p class="card-text">{{ user_task.priority }}</p>
+      <p class="card-text">{{ user_task.get_priority_display }}</p>
       <h5>Status</h5>
-      <p class="card-text">{{ user_task.status }}</p>
+      <p class="card-text">{{ user_task.get_status_display }}</p>
       <h5>Estimated Time</h5>
       <p class="card-text">{{ user_task.est_time }}</p>
       <h5>Due Date</h5>

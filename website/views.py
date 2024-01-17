@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, AddTaskForm
 from .models import Task
+from django.db.models import Case, Value, When
+
 
 def home(request):
     tasks = Task.objects.all()
@@ -102,10 +104,75 @@ def update_task(request, pk):
      else:
         messages.success(request, "You must be logged in to update tasks!")
         return redirect('home')
+     
+
+     # all sorting methods
+
+#PRIORITY
+
+def sorting(request):
+
+     if request.user.is_authenticated:
+
+
+
+          sort = request.GET.get('sort')
+
+          #priority
+
+          if sort == 'orderhigh':
+
+               tasks = Task.objects.order_by("priority")
+          elif sort == 'orderlow':
+               tasks = Task.objects.order_by("-priority")
+
+          elif sort == 'onlylow':
+               tasks = Task.objects.filter(priority='3')
+
+          elif sort == 'onlymed':
+               tasks = Task.objects.filter(priority='2')
+
+          elif sort == 'onlyhigh':
+               tasks = Task.objects.filter(priority='1')
+
+          # status
+               
+          elif sort == 'ordertodo':
+               tasks = Task.objects.order_by("status")
+
+          elif sort == 'ordercomp':
+               tasks = Task.objects.order_by("-status")
+
+          elif sort == 'onlytodo':
+               tasks = Task.objects.filter(priority='3')
+
+          elif sort == 'onlyprog':
+               tasks = Task.objects.filter(priority='2')
+               
+          elif sort == 'onlycomp':
+               tasks = Task.objects.filter(priority='1')
+
+          # datecreated
+
+          elif sort == 'created':
+               tasks = Task.objects.order_by("created_at")
+
+          # due date
+               
+          elif sort == 'due':
+               tasks = Task.objects.order_by("due_date")
+
+          # title
+               
+          elif sort == 'title':
+               tasks = Task.objects.order_by('task_title')
+
+          # id
+
+          elif sort == 'givenid':
+               tasks = Task.objects.order_by('given_id')
         
-
-     
-
-
-     
-          
+          return render(request, 'home.html', {'tasks':tasks})
+     else:
+          messages.success(request, "You must be logged in to update tasks!")
+          return redirect('home')
