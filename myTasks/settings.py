@@ -1,8 +1,7 @@
 
 from pathlib import Path
+import dj_database_url
 from dotenv import load_dotenv
-from decouple import config
-from dj_database_url import parse as db_url
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-load_dotenv()
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
@@ -21,7 +20,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS=['.vercel.app', '127.0.0.1']
+ALLOWED_HOSTS=['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -82,6 +81,10 @@ DATABASES = {
        
     }
 }
+
+# DATABASES = {
+#     'default':dj_database_url.config(default="mysql:///"+os.path.join(BASE_DIR, "db.mysql"))
+# }
 
 
 # Password validation
