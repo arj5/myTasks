@@ -8,7 +8,9 @@ SQL database with mySQL ensures efficient storage, retrieval, and sorting/filter
 Success/Fail Pop-up Messages after actions.
 Modern Bootstrap CSS for UX/UI.
 
-### User Authentication
+### User Authentication Demo
+
+https://github.com/arj5/myTasks/assets/107235667/32710218-da06-4984-a82b-8dff724d7193
 
 ### Add Task
 
