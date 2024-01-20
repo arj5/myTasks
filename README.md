@@ -8,24 +8,19 @@ SQL database with mySQL ensures efficient storage, retrieval, and sorting/filter
 Success/Fail Pop-up Messages after actions.
 Modern Bootstrap CSS for UX/UI.
 
-### User Authentication Demo
+### User Authentication
 
 https://github.com/arj5/myTasks/assets/107235667/32710218-da06-4984-a82b-8dff724d7193
 
 ### Add Task
 
-- title
-- Description
-- Priority (Low, Medium High)
-- Status (To-Do, In Progress, Completed)
-- Estiamted Time to Complete
-- Due Date
-- ID number
-- Auto store when task created (date/time)
+https://github.com/arj5/myTasks/assets/107235667/2aa4e1fc-8d77-4eb6-8db2-23b350cf8f8a
 
-### Update Task Demo
+### View Update Delete Task
 
-### Sorting Demo
+https://github.com/arj5/myTasks/assets/107235667/02432313-e2cb-4534-95c8-ad718574a2ae
 
+### Sorting & Filtering
+https://github.com/arj5/myTasks/assets/107235667/97e8ac3c-d544-4a82-839c-f7fc67ba8c96
 
-# Deployment In Progress...
+Deployment In Progress...
